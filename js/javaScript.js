@@ -1,17 +1,46 @@
 
 
-var precioAgregado = 100;
-/*let cantidadPapas = 50;
-let cantidadPalitos = 50;
-let cantidadNachos = 100;
-*/
-var productosAgregados = "NULL";
+
+//var precioAgregado = totalCarrito();
+//productosAgregados = "NULL";
 
 alert("¡BIENVENIDO A SNACK APP!");
 mostrarProductos();
-alert(precioAgregado);
-alert(productosAgregados);
 mostrarMenu();
+
+
+function totalCarrito(){
+const total = carrito.reduce((acumulador, elemento) => acumulador + elemento, 0);
+alert("el total es " + total);
+}
+
+class Producto{
+    constructor(nombre,precio,stock){
+        this.nombre = nombre.toUpperCase();
+        this.precio= parceFloat(precio);
+    }
+}
+
+
+const productosEnStock =[];
+productosEnStock.push(new Producto(papas, 200));
+productosEnStock.push(new Producto(palitos,180));
+productosEnStock.push(new Producto(nachos, 300));
+
+const carrito = [];
+class ProductosCarrito{
+    constructor(nombre, cantidadSeleccionada, precio){
+        this.nombre = nombre.toUpperCase();
+        this.cantidadSeleccionada = cantidadSeleccionada;
+        this.precio= parceFloat(precio);
+    }
+
+    total(){
+        this.cantidadSeleccionada * this.precio
+    }
+
+}
+
 
 function mostrarProductos(){
     let precioProducto;
@@ -21,28 +50,19 @@ function mostrarProductos(){
     producto= prompt("seleccione el procucto que quieres agregar\n 1.Papas Fritas $200\n 2.Palitos salados $180\n 3.Nachos $300\n");
     switch(producto){
         case "1": 
-        precioProducto = 200;
-        productoElegido= "papas";
         cantidad= prompt("¿Cantidad?");
-        //validarCantidad(cantidad, cantidadPapas);
-        agregarAlCarrito(precioProducto, cantidad, productoElegido);
+        carrito.push(new ProductosCarrito(papas, cantidad, 100));
         break;
 
         case "2": 
-        precioProducto = 180;
-        productoElegido = "palitos";
         cantidad= prompt("¿Cantidad?");
-        //validarCantidad(cantidad, cantidadPalitos);
-        agregarAlCarrito(precioProducto, cantidad, productoElegido);
+        carrito.push(new ProductosCarrito(palitos, cantidad, productosEnStock[1].precio));
         break;
 
         case "3": 
-        precioProducto = 300;
-        productoElegido = "nachos";
         cantidad= prompt("¿Cantidad?");
-        //validarCantidad(cantidad, cantidadNachos);
-        agregarAlCarrito(precioProducto, cantidad, productoElegido);
-      
+
+        carrito.push(new ProductosCarrito(papas, cantidad, productosEnStock[2].precio));
         break;
 
         case "ESC":
@@ -58,33 +78,6 @@ function mostrarProductos(){
 }
 
 
-
-
-function agregarAlCarrito(precioProducto, cantidad, producto){
-    precioAgregado = precioAgregado+ (precioProducto * cantidad);
-    if (productosAgregados != "NULL"){
-
-        productosAgregados = productosAgregados+   " - " + producto + " Cantidad: "+ cantidad;
-    }
-    else {
-        productosAgregados = producto  + " Cantidad: "+ cantidad;
-    }
-}
-
- /*
- DESPUES PIENSO MEJOR COMO IMPLEMENTAR LA VALIDES USANDO OBJETOS Y ARRAYS
- function validarCantidad(cantidad, cantidadLimite){
-
-    let darSi;
-
-    if(cantidad > cantidadLimite){
-
-        alert("NO HAY STOCK SOLO SE PUEDE COMPRAR  " + (cantidad - cantidadLimite) + " productos");
-        darSi= prompt("¿te damos solo esa cantidad? poner si o no ") 
-     }
-    }
-
-    */
    
 function mostrarMenu(){
     let opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA");
@@ -103,6 +96,8 @@ function mostrarMenu(){
         finalizarCompra();
         alert("GRACIAS POR COMPRAR");
         break;
+
+    
 
         default:
         alert("poner opcion correcta")
@@ -126,12 +121,12 @@ function mostrarMenu(){
 
 
 
-
-
-
 function mostrarCarrito(){
-    alert("Los productos agregados son "+ productosAgregados + "TOTAL: " + "$"+ precioAgregado);
+    for (const producto of carrito){
+        alert ("Producto: " +producto.nombre + " Cantidad: " +  producto.cantidadSeleccionada);
+    }
 }
+
 
 function finalizarCompra(){
 
@@ -159,4 +154,3 @@ function finalizarCompra(){
     }
 
 }
-
