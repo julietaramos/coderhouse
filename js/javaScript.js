@@ -1,18 +1,8 @@
 
-
-
-//var precioAgregado = totalCarrito();
-//productosAgregados = "NULL";
-
 alert("¡BIENVENIDO A SNACK APP!");
 mostrarProductos();
-mostrarMenu();
+mostrarMenu(productosEnStock, carrito);
 
-
-function totalCarrito(){
-const total = carrito.reduce((acumulador, elemento) => acumulador + elemento, 0);
-alert("el total es " + total);
-}
 
 class Producto{
     constructor(nombre,precio,stock){
@@ -42,7 +32,7 @@ class ProductosCarrito{
 }
 
 
-function mostrarProductos(){
+function mostrarProductos(productosEnStock){
     let precioProducto;
     let productoElegido;
     var cantidad;
@@ -51,7 +41,7 @@ function mostrarProductos(){
     switch(producto){
         case "1": 
         cantidad= prompt("¿Cantidad?");
-        carrito.push(new ProductosCarrito(papas, cantidad, 100));
+        carrito.push(new ProductosCarrito(papas, cantidad, productosEnStock[0].precio));
         break;
 
         case "2": 
@@ -79,21 +69,21 @@ function mostrarProductos(){
 
 
    
-function mostrarMenu(){
+function mostrarMenu(productosEnStock, carrito){
     let opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA");
 
     do {
         switch(opcionMenu){
          case "1": 
-        mostrarProductos();
+        mostrarProductos(productosEnStock);
         break;
 
         case "2": 
-        mostrarCarrito();
+        mostrarCarrito(carrito);
         break;
 
         case "3": 
-        finalizarCompra();
+        finalizarCompra(carrito);
         alert("GRACIAS POR COMPRAR");
         break;
 
@@ -121,16 +111,16 @@ function mostrarMenu(){
 
 
 
-function mostrarCarrito(){
+function mostrarCarrito(carrito){
     for (const producto of carrito){
         alert ("Producto: " +producto.nombre + " Cantidad: " +  producto.cantidadSeleccionada);
     }
 }
 
 
-function finalizarCompra(){
+function finalizarCompra(carrito){
 
-    let precioFinal;
+    let precioFinal = carrito.reduce((acumulador, elemento) => acumulador + elemento, 0);
     let precioCuota;
     let formaDePago = prompt ("seleccione la forma de pago \n 1.Transferencia con 15% de descuento\n 2.Tarjeta de credito sin cuotas\n 3.Tarjeta de credito con 3 cuotas con interes del 10% \n");
     switch(formaDePago){
