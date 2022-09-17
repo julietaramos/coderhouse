@@ -1,66 +1,70 @@
 
-alert("¡BIENVENIDO A SNACK APP!");
-mostrarProductos();
-mostrarMenu(productosEnStock, carrito);
-
 
 class Producto{
-    constructor(nombre,precio,stock){
+    constructor(id,nombre,precio){
+        this.id = id;
         this.nombre = nombre.toUpperCase();
-        this.precio= parceFloat(precio);
+        this.precio= parseFloat(precio);
     }
+
+    mostrarProducto(){
+        return this.nombre + " " + "$" + this.precio;
+    }
+}
+let productos = [new Producto(01,"papas", 200), new Producto(02,"palitos",180),new Producto(03,"nachos", 300)]
+
+let carrito = [];
+
+function addCarrito(id,cant) {
+    let productoId= id; 
+    let cantidad = cant;
+    let producto = productos.find(product => product.id ===productoId);
+    producto.cantidad = cantidad;
+    producto.total = producto.precio * cantidad;
+    carrito.push(producto);
 }
 
 
-const productosEnStock =[];
-productosEnStock.push(new Producto(papas, 200));
-productosEnStock.push(new Producto(palitos,180));
-productosEnStock.push(new Producto(nachos, 300));
-
-const carrito = [];
-class ProductosCarrito{
-    constructor(nombre, cantidadSeleccionada, precio){
-        this.nombre = nombre.toUpperCase();
-        this.cantidadSeleccionada = cantidadSeleccionada;
-        this.precio= parceFloat(precio);
-    }
-
-    total(){
-        this.cantidadSeleccionada * this.precio
-    }
-
+function totalCarrito(carrito){
+    let total = 0;
+    carrito.forEach(producto => {total += producto.total})
+    return total;
 }
 
 
-function mostrarProductos(productosEnStock){
-    let precioProducto;
-    let productoElegido;
-    var cantidad;
+function mostrarCarrito(carrito){
+    let muestroCarrito = " ";
+    for (const c of carrito){
+        muestroCarrito = muestroCarrito + " Producto: " +c.nombre + " Cantidad: " +  c.cantidad + "\n";
+    }
+    alert(muestroCarrito);
+}
+
+
+
+
+
+
+function mostrarProductos(){
+    let cantidad;
     let producto = "0";
     producto= prompt("seleccione el procucto que quieres agregar\n 1.Papas Fritas $200\n 2.Palitos salados $180\n 3.Nachos $300\n");
     switch(producto){
         case "1": 
         cantidad= prompt("¿Cantidad?");
-        carrito.push(new ProductosCarrito(papas, cantidad, productosEnStock[0].precio));
+        addCarrito(01, cantidad);
         break;
 
         case "2": 
         cantidad= prompt("¿Cantidad?");
-        carrito.push(new ProductosCarrito(palitos, cantidad, productosEnStock[1].precio));
+        addCarrito(02, cantidad);
+        
         break;
 
         case "3": 
         cantidad= prompt("¿Cantidad?");
-
-        carrito.push(new ProductosCarrito(papas, cantidad, productosEnStock[2].precio));
+        addCarrito(03, cantidad);
         break;
-
-        case "ESC":
-        break;
-
-        default:
-            alert("ingrese algo correcto")
-            break;
 
     }
 
@@ -71,10 +75,10 @@ function mostrarProductos(productosEnStock){
    
 function mostrarMenu(productosEnStock, carrito){
     let opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA");
+       while(opcionMenu != 'ESC') {
 
-    do {
         switch(opcionMenu){
-         case "1": 
+        case "1": 
         mostrarProductos(productosEnStock);
         break;
 
@@ -87,53 +91,39 @@ function mostrarMenu(productosEnStock, carrito){
         alert("GRACIAS POR COMPRAR");
         break;
 
-    
-
+        case 'ESC':
+        alert("Gracias por elegirnos")
+        
+        
         default:
-        alert("poner opcion correcta")
-            break;
-
-        }
-
-        if (opcionMenu != "3"){
-
-        opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA \n");
-        }
-
-        if(opcionMenu =="3"){
-            finalizarCompra();
-            alert("GRACIAS POR COMPRAR");
-        }
-
-    } while(opcionMenu != "3");
-
-}
+        alert("Ingresar algo valido");
+        break;
 
 
-
-function mostrarCarrito(carrito){
-    for (const producto of carrito){
-        alert ("Producto: " +producto.nombre + " Cantidad: " +  producto.cantidadSeleccionada);
+         }
+        opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA");
     }
-}
+
+
+
 
 
 function finalizarCompra(carrito){
 
-    let precioFinal = carrito.reduce((acumulador, elemento) => acumulador + elemento, 0);
+    let precioFinal = totalCarrito(carrito);
     let precioCuota;
     let formaDePago = prompt ("seleccione la forma de pago \n 1.Transferencia con 15% de descuento\n 2.Tarjeta de credito sin cuotas\n 3.Tarjeta de credito con 3 cuotas con interes del 10% \n");
     switch(formaDePago){
         case "1": 
-        precioFinal = precioAgregado * 0.85;
+        precioFinal = precioFinal* 0.85;
         break;
 
         case "2": 
-        precioFinal = precioAgregado;
+        precioFinal = precioFinal;
         break;
 
         case "3": 
-        precioFinal = precioAgregado * 1.10;
+        precioFinal = precioFinal * 1.10;
         precioCuota = precioFinal / 3;
         break;
     }
@@ -144,3 +134,8 @@ function finalizarCompra(carrito){
     }
 
 }
+}
+
+alert("¡BIENVENIDO A SNACK APP!");
+mostrarProductos(productos, carrito);
+mostrarMenu(productos, carrito);
