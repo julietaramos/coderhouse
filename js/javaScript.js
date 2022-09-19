@@ -1,5 +1,7 @@
 
+let contenedorProductos= document.createElement("div");
 
+let contenedorCarrito = document.createElement("div");
 class Producto{
     constructor(id,nombre,precio){
         this.id = id;
@@ -92,8 +94,8 @@ function mostrarMenu(productosEnStock, carrito){
         break;
 
         case 'ESC':
-        alert("Gracias por elegirnos")
-        
+        alert("Gracias por elegirnos");
+        break;
         
         default:
         alert("Ingresar algo valido");
@@ -136,6 +138,36 @@ function finalizarCompra(carrito){
 }
 }
 
+
+/*function escribirProductos(contenedor){
+  for (const producto of productos){
+
+        contenedor.innerHTML = `<h3> ID: ${producto.id} </h3>
+                                <p> Producto: ${producto.nombre}</p>
+                                <b> $ ${producto.precio} </b>`
+     
+
+    document.body.appendChild(contenedor);
+        
+    }
+}*/
+
+
+
+
+
 alert("¡BIENVENIDO A SNACK APP!");
 mostrarProductos(productos, carrito);
 mostrarMenu(productos, carrito);
+
+
+for (const c of carrito){
+
+    contenedorCarrito.innerHTML = `<h1> USTED AGREGO: </h1>
+                            <h3> Producto: ${c.nombre} </h3>
+                            <p> cantidad: ${c.cantidad}</p>`;
+ 
+
+document.body.appendChild(contenedorCarrito);
+    
+}
