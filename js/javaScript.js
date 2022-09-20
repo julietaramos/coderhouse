@@ -77,7 +77,7 @@ function mostrarProductos(){
 
    
 function mostrarMenu(productosEnStock, carrito){
-    let opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA");
+    let opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.PAGAR\n ESC.SALIR");
        while(opcionMenu != 'ESC') {
 
         switch(opcionMenu){
@@ -104,7 +104,7 @@ function mostrarMenu(productosEnStock, carrito){
 
 
          }
-        opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.FINALIZAR COMPRA");
+        opcionMenu =prompt("1.SEGUIR COMPRANDO \n 2. CARRITO\n 3.PAGAR\n ESC.SALIR");
     }
 
 
