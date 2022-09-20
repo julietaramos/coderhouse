@@ -1,7 +1,8 @@
 
 let contenedorProductos= document.createElement("div");
 
-let contenedorCarrito = document.createElement("div");
+let contenedorCarrito = document.createElement("carrito");
+
 class Producto{
     constructor(id,nombre,precio){
         this.id = id;
@@ -160,14 +161,15 @@ alert("¡BIENVENIDO A SNACK APP!");
 mostrarProductos(productos, carrito);
 mostrarMenu(productos, carrito);
 
+const titulo = document.getElementById("seleccion");
+
+titulo.textContent = `USTED SELECCIONO:` 
 
 for (const c of carrito){
 
-    contenedorCarrito.innerHTML = `<h1> USTED AGREGO: </h1>
-                            <h3> Producto: ${c.nombre} </h3>
-                            <p> cantidad: ${c.cantidad}</p>`;
+    contenedorCarrito.innerHTML = `<h3> Producto: ${c.nombre} </h3>
+                                   <p> cantidad: ${c.cantidad}</p>`;
  
-
-document.body.appendChild(contenedorCarrito);
+    document.body.appendChild(contenedorCarrito);
     
 }
