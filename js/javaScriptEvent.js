@@ -32,6 +32,7 @@ class Product{
 
 }
 
+/*TIENE LO QUE PIDE LA CLASE 12*/
 
 function setItems(product) {
     let cartItems = localStorage.getItem('productsInCart');
@@ -75,13 +76,11 @@ function cartNumbers(product){
 
 
 
-
+/*TIENE LO QUE PIDE LA CLASE 12*/
 
 function onLoadCartNumbers(){
     let productNumbers = localStorage.getItem('cartNumbers');
-    if(productNumbers){
-    document.querySelector('.cart span').textContent = productNumbers;
-    } 
+    productNumbers!=null  && (document.querySelector('.cart span').textContent = productNumbers);
 }
 
 
