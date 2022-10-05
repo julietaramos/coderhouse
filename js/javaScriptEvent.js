@@ -89,6 +89,17 @@ function onLoadCartNumbers(){
 for (let i= 0; i < addCarts.length; i++){
     addCarts[i].addEventListener('click',()=>{
         cartNumbers(products[i]);
+        Toastify({
+            text: "Agregaste " + products[i].name,
+            duration: 3000,
+            gravity: 'bottom',
+            position: 'left',
+            style: {
+                background: 'rgba(253, 108, 122, 1)'
+            }
+    
+        }).showToast();
+    
         })
 }
 
